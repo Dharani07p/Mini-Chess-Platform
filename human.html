@@ -1,0 +1,29 @@
+<h2>Multiplayer</h2>
+
+<input id='room' placeholder='room'>
+<input id='move' placeholder='move'>
+<button onclick='connect()'>Connect</button>
+<button onclick='send()'>Send</button>
+
+<pre id='log'></pre>
+
+<script src='https://cdn.jsdelivr.net/npm/sockjs-client'></script>
+<script src='https://cdn.jsdelivr.net/npm/stompjs'></script>
+
+<script>
+let stomp, room;
+
+function connect(){
+room=document.getElementById('room').value;
+stomp=Stomp.over(new SockJS('/chess'));
+stomp.connect({},function(){
+stomp.subscribe('/topic/'+room,function(m){
+document.getElementById('log').innerText+=m.body+'\n';
+});
+});
+}
+
+function send(){
+stomp.send('/app/move/'+room,{},document.getElementById('move').value);
+}
+</script>

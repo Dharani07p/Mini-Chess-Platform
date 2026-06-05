@@ -1,0 +1,11 @@
+<h2>Stats</h2>
+<button onclick='load()'>Load</button>
+<pre id='out'></pre>
+
+<script>
+function load(){
+fetch('/game/stats')
+.then(r=>r.text())
+.then(d=>document.getElementById('out').innerText=d);
+}
+</script>

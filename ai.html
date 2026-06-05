@@ -1,0 +1,10 @@
+<h2>AI Game</h2>
+<input id='m'>
+<button onclick='go()'>Move</button>
+
+<script>
+function go(){
+fetch('/game/move?move='+document.getElementById('m').value)
+.then(r=>r.text()).then(alert);
+}
+</script>
